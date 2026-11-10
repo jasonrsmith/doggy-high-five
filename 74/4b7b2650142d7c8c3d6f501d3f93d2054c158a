@@ -1,0 +1,21 @@
+index.html
+  s_f570c809c777e2::t_7ea16f9bdd77c5 524-531,578-580,615,624,632
+src/draw-dog.js
+  s_f570c809c777e2::t_c3a240c7ca431d 53-60,107-109,144,153,161
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "744b7b2650142d7c8c3d6f501d3f93d2054c158a",
+  "prompts": {},
+  "sessions": {
+    "s_f570c809c777e2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "541f67da-0410-4876-b40c-3480d70a338c",
+        "model": "unknown"
+      },
+      "human_author": "Jason Smith <eastcoastj@gmail.com>"
+    }
+  }
+}
