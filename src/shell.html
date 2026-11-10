@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Doggy High Five</title>
+<meta name="description" content="You are a dog. Your friend is a dog. Try to high five them. Nobody here has thumbs, balance, or a plan.">
+<style>
+  html.solo, html.solo body { margin: 0; background: #f3e9d2; }
+  html.solo body { padding: 8px; }
+  #stage {
+    position: relative; width: 100%; margin: 0 auto; aspect-ratio: 16 / 9; overflow: hidden;
+    border-radius: var(--radius, 12px);
+    font: bold 12px "Comic Sans MS", "Chalkboard SE", "Comic Neue", "Marker Felt", "Segoe Print", cursive;
+    user-select: none; -webkit-user-select: none; touch-action: none;
+  }
+  html.solo #stage { border: 4px solid #1d1a18; box-sizing: border-box; }
+  #cv { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .pad { position: absolute; bottom: 2.6%; display: flex; gap: .6em; align-items: flex-end; }
+  .pad.l { left: 1.6%; }
+  .pad.r { right: 1.8%; }
+  /* hand-drawn boxes: lopsided corners, ink border, hard shadow */
+  .key {
+    font: inherit; color: #1d1a18; background: #fff7df; cursor: pointer; text-transform: uppercase;
+    border: .2em solid #1d1a18; border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
+    box-shadow: .2em .28em 0 #1d1a18; padding: .3em .6em .32em; min-width: 4.9em;
+    text-align: center; line-height: 1.1; touch-action: none;
+  }
+  .key:nth-child(even) { border-radius: 18px 225px 18px 255px / 255px 18px 225px 18px; }
+  .key b { display: block; font-size: 1.5em; }
+  .key span { display: block; font-size: .72em; }
+  .key.wide { min-width: 7.4em; background: #ffd23f; }
+  .key.on, .key:active { transform: translate(.14em, .2em); box-shadow: .06em .08em 0 #1d1a18; background: #ff9ecb; }
+  .key:focus-visible { outline: .2em solid #1d1a18; outline-offset: .15em; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="cv" width="960" height="540" aria-label="Doggy High Five game"></canvas>
+  <div class="pad l">
+    <button class="key" data-k="back" tabindex="-1"><b>A</b><span>lean back<br>(stand up)</span></button>
+    <button class="key" data-k="fwd" tabindex="-1"><b>D</b><span>lean<br>forward</span></button>
+  </div>
+  <div class="pad r">
+    <button class="key" data-k="up" tabindex="-1"><b>W</b><span>paw<br>up</span></button>
+    <button class="key" data-k="down" tabindex="-1"><b>S</b><span>paw<br>down</span></button>
+    <button class="key wide" data-k="slap" tabindex="-1"><b>SPACE</b><span>SLAP!<br>&nbsp;</span></button>
+  </div>
+</div>
+<script>
+/*BUNDLE*/
+</script>
+</body>
+</html>
