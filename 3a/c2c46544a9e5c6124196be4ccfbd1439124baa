@@ -1,0 +1,49 @@
+.gitattributes
+  s_f570c809c777e2::t_7281533fbfb1fe 1
+README.md
+  s_f570c809c777e2::t_ca84188e6160c4 1-27
+build.js
+  s_f570c809c777e2::t_d2f0fe0904b7d1 1-10
+index.html
+  s_f570c809c777e2::t_0383b19ec5ab8d 1-1509
+src/draw-face.js
+  s_f570c809c777e2::t_346e3e4ab6f57c 1-133
+src/draw-fx.js
+  s_f570c809c777e2::t_9bc3064eb9ad65 1-147
+src/game-core.js
+  s_f570c809c777e2::t_fa84c5b1c763ea 1-191
+src/game-ui.js
+  s_f570c809c777e2::t_514324f4fd1a43 1-203
+src/shell.html
+  s_f570c809c777e2::t_cf0fd2aaa423cf 1-54
+src/sim.js
+  s_f570c809c777e2::t_aad96641fdfeba 1-228
+test/human-test.js
+  s_f570c809c777e2::t_ab5533c0d4f1a9 1-41
+src/audio.js
+  s_f570c809c777e2::t_435b6a578ceb86 1-46
+src/brain.js
+  s_f570c809c777e2::t_5740e592e6050c 1-189
+src/draw-bg.js
+  s_f570c809c777e2::t_4e7ce263098b4e 1-116
+src/draw-dog.js
+  s_f570c809c777e2::t_66e25ec1de6bf9 1-191
+test/sim-test.js
+  s_f570c809c777e2::t_376da5bf54af76 1-45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3ac2c46544a9e5c6124196be4ccfbd1439124baa",
+  "prompts": {},
+  "sessions": {
+    "s_f570c809c777e2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "541f67da-0410-4876-b40c-3480d70a338c",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Jason Smith <eastcoastj@gmail.com>"
+    }
+  }
+}
