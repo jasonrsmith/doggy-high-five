@@ -521,6 +521,14 @@ function ik2(ax, ay, bx, by, l1, l2, s) {
   const ux = dx / dd, uy = dy / dd;
   return { x: ax + ux * a - uy * h * s, y: ay + uy * a + ux * h * s };
 }
+// Where a noodle limb bows out. Like ik2, but the bulge is capped (noodles curve, they don't fold),
+// and `s` can be any value in [-1, 1] so the bend can sweep smoothly from one side to the other.
+function knee(ax, ay, bx, by, half, s, k = 0.17) {
+  const dx = bx - ax, dy = by - ay, dd = Math.hypot(dx, dy) || 1e-6;
+  const m = Math.min(dd, 2 * half);
+  const h = Math.min(Math.sqrt(Math.max(0, half * half - (m * m) / 4)), k * dd + 4) * s;
+  return { x: ax + dx / 2 - (dy / dd) * h, y: ay + dy / 2 + (dx / dd) * h };
+}
 // Big dumb oval foot with two toe ticks. (x, y) is where it touches the ground.
 function foot(g, x, y, dr, w, col, rot = 0) {
   g.save(); g.translate(x, y); g.rotate(rot);
@@ -567,7 +575,9 @@ function drawArm(g, d) {
   const b = d.b, dr = d.dir, sh = d.sh, half = b.armL / 2, armW = Math.max(5, b.thick * 0.16);
   g.save();
   if (d.spin < 0) { const cx = (d.hip.x + sh.x) / 2; g.translate(cx, 0); g.scale(-1, 1); g.translate(-cx, 0); }
-  const el = ik2(sh.x, sh.y, d.paw.x, d.paw.y, half, half, dr);
+  // elbow points forward while the paw hangs, and down once the paw is raised: never out of the back
+  const side = dr * clamp((d.al - 0.55) / 0.45, -1, 1);
+  const el = knee(sh.x + dr * 4, sh.y, d.paw.x, d.paw.y, half, side, 0.3);
   noodle(g, sh.x + dr * 4, sh.y, el.x, el.y, d.paw.x, d.paw.y, armW, b.fur);
   const pr = b.pawR * 1.25, dx = dr * Math.sin(d.al), dy = Math.cos(d.al), pa = Math.atan2(dy, dx);
   if (d.slapT > 0) {   // speed lines
@@ -602,7 +612,7 @@ function drawDog(g, d, time) {
     const fx = hip.x + dr * (i ? 12 : -4) + d.walk * Math.sin(ph) * 13, fy = gy - d.walk * Math.max(0, Math.cos(ph)) * 9;
     const a = 1.25 + 0.45 * Math.sin(time * 11 + i * 2.1);
     const x = lerp(fx, hip.x + dr * Math.cos(a) * legL * 1.7, fk), y = lerp(fy, hip.y - Math.sin(a) * legL * 1.7, fk);
-    const hx = hip.x + dr * (i ? 6 : 0), hy = hip.y + T * 0.2 * (1 - fk), k = ik2(hx, hy, x, y, legL, legL, -dr);
+    const hx = hip.x + dr * (i ? 6 : 0), hy = hip.y + T * 0.2 * (1 - fk), k = knee(hx, hy, x, y, legL, -dr);
     return [hx, hy, k.x, k.y, x, y];
   };
   // near front leg: on the ground, or dangling like a begging T-rex
@@ -611,7 +621,7 @@ function drawDog(g, d, time) {
   const fL = lerp(Math.max(8, gy - sh.y), b.armL * 0.66, dangle);
   const ffx = sh.x - dr * 9 * (1 - dangle) + dr * fL * Math.sin(fa) + d.walk * Math.sin(d.wph + 2) * 12 * (1 - dangle);
   const ffy = Math.min(sh.y + fL * Math.cos(fa), GROUND);
-  const fe = ik2(sh.x, sh.y, ffx, ffy, half, half, dr);
+  const fe = knee(sh.x, sh.y + T * 0.12, ffx, ffy, half, dr);
   const hf = hind(1), hn = hind(0);
 
   noodle(g, hf[0], hf[1], hf[2], hf[3], hf[4], hf[5], legW, far);
@@ -619,7 +629,7 @@ function drawDog(g, d, time) {
 
   // the high-five leg, while it is still just a leg (once lifted, drawArm inks it on top of everyone)
   if (d.planted) {
-    const el = ik2(sh.x, sh.y, d.paw.x, d.paw.y, half, half, dr);
+    const el = knee(sh.x + dr * 4, sh.y, d.paw.x, d.paw.y, half, dr);
     noodle(g, sh.x + dr * 4, sh.y, el.x, el.y, d.paw.x, d.paw.y, armW, far);
     foot(g, d.paw.x, d.paw.y + b.pawR * 0.45, dr, fw * 0.92, far);
   }
